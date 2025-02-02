@@ -1,6 +1,5 @@
 <mat-card class="title">
-  <mat-card-title>{{ isEdit ? 'Editar Tarefa' : 'Nova Tarefa' }}</mat-card-title>
-  <p>{{task.id}}</p>
+  <mat-card-title>{{ task.id ? 'Editar Tarefa' : 'Nova Tarefa' }}</mat-card-title>
   <mat-card-content>
     <mat-card class="task-item">
       <form (ngSubmit)="saveTask()" class="form">

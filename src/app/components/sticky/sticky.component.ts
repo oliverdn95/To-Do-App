@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDrag, CdkDropList, CdkDropListGroup, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgFor, NgIf } from '@angular/common';
-import { Task } from '../../interfaces/task';
+import { Task, TaskList } from '../../interfaces/task';
 import { TaskService } from '../../task.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -28,40 +28,38 @@ export class StickyComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    this.gettingTasks();
+  }
+
+  gettingTasks(){
     this.taskService.getTasks().subscribe( async (tasks:Task[]) => {
-      this.initList(tasks);
+      this.organizeList(tasks);
     },
     (error) => {
       console.log("Erro ao carregar tarefas", error);
-    });  
-  }
-
-  initList(listFromDb:Task[]):void {
-
-    listFromDb.forEach(task => {
-      this.verifyAndPush(task)
     });
   }
 
-  updateList(listFromDb:Task[]):void {
-    this.todo, this.working, this.done = []
-
-    listFromDb.forEach(task => {
-      this.verifyAndPush(task)
-    });
+  organizeList(listFromDb:Task[]):void {
+    this.todo = listFromDb.filter((task) => task.status === "todo").sort((a, b) => a.index - b.index)
+    this.working = listFromDb.filter((task) => task.status === "working").sort((a, b) => a.index - b.index)
+    this.done = listFromDb.filter((task) => task.status === "done").sort((a, b) => a.index - b.index)
   }
 
   verifyAndPush(task:Task){
     switch(task.status){
       case "todo":{
+        task.index = this.todo.length || 0;
         this.todo.push(task);
         break;
       }
       case "working":{
+        task.index = this.working.length || 0;
         this.working.push(task);
         break;
       }
       case "done":{
+        task.index = this.done.length || 0;
         this.done.push(task);
         break;
       }
@@ -107,8 +105,22 @@ export class StickyComponent implements OnInit {
     this.working = this.working.filter(t => t.id !== updatedTask.id);
     this.done = this.done.filter(t => t.id !== updatedTask.id);
     
-    this.verifyAndPush(updatedTask);
-  }
+    // this.verifyAndPush(updatedTask);
+
+    this.orderByIndex();
+    const taskList: TaskList = {
+      todoList: this.todo.map(task => ({ ...task })),
+      workingList: this.working.map(task => ({ ...task })),
+      doneList: this.done.map(task => ({ ...task })),
+    };
+    this.taskService.updateOrder(taskList).subscribe((response) => {
+      console.log("Tarefas atualizadas");
+    },
+      (error) => {
+        console.log("Deu ruim")
+      });
+    this.gettingTasks();
+    }
 
   markAsDone(task:Task){
     task.status = 'done';
@@ -144,23 +156,47 @@ export class StickyComponent implements OnInit {
     }
 
   }
+
+  orderByIndex(){
+    this.todo.forEach((task, index) => task.index = index);
+    this.working.forEach((task, index) => task.index = index);
+    this.done.forEach((task, index) => task.index = index);
+  }
   
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
     } else {
       transferArrayItem(event.previousContainer.data,
           event.container.data,
           event.previousIndex,
           event.currentIndex);
     }
+
+    const movedTask = event.container.data[event.currentIndex];
+    if (event.container.id === 'todo') {
+      movedTask.status = 'todo';
+    } else if (event.container.id === 'working') {
+      movedTask.status = 'working';
+    } else if (event.container.id === 'done') {
+      movedTask.status = 'done';
+    }
+  
+    this.orderByIndex();
+
+    const taskList: TaskList = {
+    todoList: this.todo.map(task => ({ ...task })),
+    workingList: this.working.map(task => ({ ...task })),
+    doneList: this.done.map(task => ({ ...task })),
+    };
+
+    this.taskService.updateOrder(taskList).subscribe((response) => {
+      console.log("Tarefas atualizadas");
+    },
+  (error) => {
+    console.log("Deu ruim")
+  });
     
-    const movedTask = event.item.data;
-    movedTask.status = event.container.id;
-    this.taskService.editTask(movedTask, movedTask.id).subscribe(
-      (updatedTask:Task) => console.log("Tarefa Atualizazda:", updatedTask),
-      (error) => console.log("Erro ao atualizar tarefa", error)
-    );
   }
   
 }

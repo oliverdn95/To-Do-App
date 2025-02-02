@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from './interfaces/task';
+import { Task, TaskList } from './interfaces/task';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,9 @@ export class TaskService {
 
   public deleteTask(pk:number):Observable<Task>{
     return this.http.delete<Task>(`${this.API_URL}tasks/${pk}`);
+  }
+
+  public updateOrder(req:TaskList):Observable<TaskList>{
+    return this.http.put<TaskList>(`${this.API_URL}update/`, req);
   }
 }

@@ -22,7 +22,8 @@ export class StickyFormComponent {
     status: "",
     priority: "",
     complexity: "",
-    summary: ""
+    summary: "",
+    index: 0
   };
   isEdit: boolean = false;
 
