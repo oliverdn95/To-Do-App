@@ -1,0 +1,121 @@
+.task-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 3rem;
+  margin-top: 20px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.task-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 20px;
+}
+
+.task-box {
+  margin-bottom: 1.5rem;
+}
+
+.task-card {
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+  gap: 1.5rem;
+  background-color: antiquewhite;
+}
+
+.task-card mat-card-header {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}
+
+.task-card mat-card-header mat-card-title {
+  font-size: xx-large;
+}
+
+.card-title {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}
+
+.task-priority-complexity{
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.task-priority-complexity-card{
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.mini{
+  font-size:smaller;
+}
+
+.task-item {
+  background-color: gold;
+  padding: 10px;
+  width: 100%;
+  min-height: 10rem;
+  height: 100%;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  gap: 10px;
+  color: black;
+}
+
+.task-actions mat-icon{
+  color: black;
+}
+
+.task-actions mat-icon-button {
+  color: #00796b;
+}
+
+.add-task {
+  background-color: rgba(255, 208, 0, 0.1);
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  min-height: 10rem;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-task:hover {
+  background-color: rgba(255, 208, 0, 0.5);
+}
+
+.add-task mat-icon {
+  font-size: 25px;
+  color: #00796b;
+  padding: 10px;
+  margin-right: 10px;
+} 
+
+.add-task mat-card-content {
+  font-size: 20px;
+  color: #00796b;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}

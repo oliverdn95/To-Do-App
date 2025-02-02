@@ -1,0 +1,180 @@
+<div cdkDropListGroup class="task-container" *ngIf="todo.length > 0 || working.length > 0 || done.length > 0">
+  <!-- To Do Column -->
+  <div cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" id="todo" class="task-column">
+    <mat-card class="task-card">
+      <mat-card-header>
+        <mat-card-title>To Do</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let task of todo" class="task-box" cdkDrag>
+          <mat-card class="task-item">
+            <mat-card-header class="card-title">
+              <mat-card-title>{{ task.name }}</mat-card-title>
+            </mat-card-header>
+            <div class="task-priority-complexity">
+              <div *ngIf="task.priority == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-low">star_border</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-medium">star_half</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-high">star</mat-icon><span class="mini">priority</span>
+              </div>
+
+              <div *ngIf="task.complexity == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-low">star_border</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-medium">star_half</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-high">star</mat-icon><span class="mini">complexity</span>
+              </div>
+            </div>
+            <mat-card-content>
+              <p>{{ task.summary }}</p>
+              <div class="task-actions">
+                <button mat-icon-button (click)="openForm(task)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="markAsDone(task)">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteTask(task)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-card class="add-task" (click)="openForm()">
+          <mat-card-content>
+            <mat-icon>add_circle</mat-icon> Adicionar Nova Tarefa
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- Working Column -->
+  <div cdkDropList [cdkDropListData]="working" (cdkDropListDropped)="drop($event)" id="working" class="task-column">
+    <mat-card class="task-card">
+      <mat-card-header>
+        <mat-card-title>Working</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let task of working" class="task-box" cdkDrag>
+          <mat-card class="task-item">
+            <mat-card-header class="card-title">
+              <mat-card-title>{{ task.name }}</mat-card-title>
+            </mat-card-header>
+            <div class="task-priority-complexity">
+              <div *ngIf="task.priority == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-low">star_border</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-medium">star_half</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-high">star</mat-icon><span class="mini">priority</span>
+              </div>
+
+              <div *ngIf="task.complexity == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-low">star_border</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-medium">star_half</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-high">star</mat-icon><span class="mini">complexity</span>
+              </div>
+            </div>
+            <mat-card-content>
+              <p>{{ task.summary }}</p>
+              <div class="task-actions">
+                <button mat-icon-button (click)="openForm(task)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="markAsDone(task)">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteTask(task)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-card class="add-task" (click)="openForm()">
+          <mat-card-content>
+            <mat-icon>add_circle</mat-icon> Adicionar Nova Tarefa
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Done Column -->
+  <div cdkDropList [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" id="done" class="task-column">
+    <mat-card class="task-card">
+      <mat-card-header>
+        <mat-card-title>Done</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let task of done" class="task-box" cdkDrag>
+          <mat-card class="task-item">
+            <mat-card-header class="card-title">
+              <mat-card-title>{{ task.name }}</mat-card-title>
+            </mat-card-header>
+            <div class="task-priority-complexity">
+              <div *ngIf="task.priority == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-low">star_border</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-medium">star_half</mat-icon><span class="mini">priority</span>
+              </div>
+              <div *ngIf="task.priority == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="priority-high">star</mat-icon><span class="mini">priority</span>
+              </div>
+
+              <div *ngIf="task.complexity == 'low'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-low">star_border</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'medium'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-medium">star_half</mat-icon><span class="mini">complexity</span>
+              </div>              
+              <div *ngIf="task.complexity == 'high'" class="task-priority-complexity-card">
+                <mat-icon  class="complexity-high">star</mat-icon><span class="mini">complexity</span>
+              </div>
+            </div>
+            <mat-card-content>
+              <p>{{ task.summary }}</p>
+              <div class="task-actions">
+                <button mat-icon-button (click)="openForm(task)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteTask(task)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-card class="add-task" (click)="openForm()">
+          <mat-card-content>
+            <mat-icon>add_circle</mat-icon><span>Adicionar Nova Tarefa</span> 
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

@@ -1,0 +1,64 @@
+.title{
+    width: 65vw;
+    
+}
+
+.title mat-card-title{
+    align-self: center;
+}
+
+.form *{
+    color: black !important;
+}
+
+.form mat-form-field{
+    align-content: flex-start;
+    display: row;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.name{
+    width: 40vw;
+}
+
+.name input{
+    color: black !important;
+}
+
+.status{
+    margin-left: 0.7rem;
+    width: 20vw;
+}
+
+.priority-complexity{
+    margin-left: 0.7rem;
+    width: 48%;
+}
+
+.summary{
+    width: 100%;
+}
+
+.summary input{
+    color: black !important;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+.saveBtn{
+    background-color:rgb(255, 102, 0, 0.788) !important;
+    font-size: larger;
+    width: 100%;
+}
+
+.task-item {
+    justify-content: space-evenly;
+    background-color: gold;
+    padding: 10px;
+    width: 100%;
+    min-height: 10rem;
+    height: 100%;
+  }

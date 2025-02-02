@@ -1,0 +1,52 @@
+<mat-card class="title">
+  <mat-card-title>{{ isEdit ? 'Editar Tarefa' : 'Nova Tarefa' }}</mat-card-title>
+  <p>{{task.id}}</p>
+  <mat-card-content>
+    <mat-card class="task-item">
+      <form (ngSubmit)="saveTask()" class="form">
+        <mat-form-field class="name" appearance="outline">
+          <mat-label>Nome da Tarefa</mat-label>
+          <input matInput [(ngModel)]="task.name" name="name">
+        </mat-form-field>
+  
+        <mat-form-field class="status" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="task.status" name="status">
+            <mat-option value="todo">Todo</mat-option>
+            <mat-option value="working">Working</mat-option>
+            <mat-option value="done">Done</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field class="priority-complexity" appearance="outline">
+          <mat-label><mat-icon>star</mat-icon><strong>Priority</strong></mat-label>
+          <mat-select [(ngModel)]="task.priority" name="priority">
+            <mat-option value="low"><mat-icon class="priority-low">star_border</mat-icon><span>Low</span></mat-option>
+            <mat-option value="medium"><mat-icon class="priority-medium">star_half</mat-icon><span>Medium</span></mat-option>
+            <mat-option value="high"><mat-icon class="priority-high">star</mat-icon><span>High</span></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="priority-complexity" appearance="outline">
+          <mat-label><mat-icon>star</mat-icon><strong>Complexity</strong></mat-label>
+          <mat-select [(ngModel)]="task.complexity" name="complexity">
+            <mat-option value="low"><mat-icon class="complexity-low">star_border</mat-icon><span>Low</span></mat-option>
+            <mat-option value="medium"><mat-icon class="complexity-medium">star_half</mat-icon><span>Medium</span></mat-option>
+            <mat-option value="high"><mat-icon class="complexity-high">star</mat-icon><span>High</span></mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field class="summary" appearance="outline">
+          <mat-label>Resumo</mat-label>
+          <textarea matInput [(ngModel)]="task.summary" name="summary"></textarea>
+        </mat-form-field>
+        
+        <div class="btn">
+          <button mat-fab extended class="saveBtn" type="submit" (ngSubmit)="saveTask()">
+            <mat-icon>save</mat-icon>Save
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
