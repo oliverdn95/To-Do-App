@@ -16,15 +16,15 @@ export class TaskService {
   }
 
   public newTask(req:any):Observable<Task>{
-    return this.http.post<Task>(`${this.API_URL}tasks/create`, req);
+    return this.http.post<Task>(`${this.API_URL}create/`, req);
   }
   
   public getTask(pk:number):Observable<Task>{
-    return this.http.get<Task>(`${this.API_URL}tasks/${pk}`);
+    return this.http.get<Task>(`${this.API_URL}task/${pk}`);
   }
 
   public editTask(req:Task, pk:number):Observable<Task>{
-    return this.http.put<Task>(`${this.API_URL}tasks/${pk}`, req);
+    return this.http.put<Task>(`${this.API_URL}task/${pk}`, req);
   }
 
   public completeTask(req:Task, pk:number):Observable<Task>{
@@ -32,7 +32,7 @@ export class TaskService {
   }
 
   public deleteTask(pk:number):Observable<Task>{
-    return this.http.delete<Task>(`${this.API_URL}tasks/${pk}`);
+    return this.http.delete<Task>(`${this.API_URL}task/${pk}`);
   }
 
   public updateOrder(req:TaskList):Observable<TaskList>{
